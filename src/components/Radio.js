@@ -3,7 +3,7 @@ const Radio = ({ label, choices, name, onChange, checked, error }) => {
     <div className="form__group form__group--radio">
       <p>{label}</p>
       {choices.map(choice => (
-        <label htmlFor={choice.id} key={choice.id}>
+        <label key={choice.id} htmlFor={choice.id}>
           <input
             type="radio"
             name={name}

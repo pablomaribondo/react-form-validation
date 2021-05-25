@@ -8,7 +8,7 @@ const Textarea = ({ id, label, name, value, onChange, error }) => {
         value={value}
         onChange={onChange}
         className={error ? 'error' : ''}
-      ></textarea>
+      />
       {error && <div className="form__error">{error}</div>}
     </div>
   );
