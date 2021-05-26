@@ -5,9 +5,89 @@ import Radio from './Radio';
 import Select from './Select';
 import Textarea from './Textarea';
 
+import useForm from '../hooks/useForm';
+import validate from '../utils/validate';
+
+const INITIAL_STATE = {
+  name: {
+    value: '',
+    required: true
+  },
+  email: {
+    value: '',
+    required: true,
+    requiredMessage: 'Email address is required!',
+    email: true,
+    emailMessage: 'Email address is not valid!'
+  },
+  password: {
+    value: '',
+    required: true,
+    minLength: 6,
+    minLengthMessage: 'Password must be at least 6 characters long',
+    maxLength: 16,
+    maxLengthMessage: 'Too many character!'
+  },
+  confirmPassword: {
+    value: '',
+    required: true,
+    matchWith: 'password',
+    matchWithMessage: 'Password values must be equal!'
+  },
+  gender: {
+    value: '',
+    required: true
+  },
+  difficulty: {
+    value: '',
+    required: true
+  },
+  image: {
+    value: {},
+    required: true,
+    file: true,
+    allowedTypes: ['jpg', 'jpeg', 'png', 'gif'],
+    maxFileSize: 1024
+  },
+  description: {
+    value: ''
+  },
+  terms: {
+    value: false,
+    required: true,
+    requiredMessage: 'You need to accept our Terms and Conditions!'
+  }
+};
+
 const Form = () => {
+  const { formData, errors, changeHandler, setErrors } = useForm(
+    INITIAL_STATE,
+    validate
+  );
+
   const submitHandler = event => {
     event.preventDefault();
+
+    const formErrors = validate(formData, true);
+    setErrors(formErrors);
+
+    if (Object.keys(formErrors).length === 0) {
+      const data = new FormData();
+
+      data.append('name', formData.name.value);
+      data.append('email', formData.email.value);
+      data.append('password', formData.password.value);
+      data.append('gender', formData.gender.value);
+      data.append('difficulty', formData.difficulty.value);
+      data.append('image', formData.image.value);
+      data.append('description', formData.description.value);
+      data.append('terms', formData.terms.value);
+
+      console.log('Form can be submitted now...');
+      for (const [key, value] of data.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+    }
   };
 
   return (
@@ -17,35 +97,35 @@ const Form = () => {
           label="Full name"
           name="name"
           id="name"
-          // Value={}
-          // onChange={}
-          // error={}
+          value={formData.name.value}
+          onChange={changeHandler}
+          error={errors.name}
         />
         <Input
           label="Email"
           name="email"
           id="email"
-          // Value={}
-          // onChange={}
-          // error={}
+          value={formData.email.value}
+          onChange={changeHandler}
+          error={errors.email}
         />
         <Input
           type="password"
           label="Password"
           name="password"
           id="password"
-          // Value={}
-          // onChange={}
-          // error={}
+          value={formData.password.value}
+          onChange={changeHandler}
+          error={errors.password}
         />
         <Input
           type="password"
           label="Password"
           name="confirmPassword"
           id="confirmPassword"
-          // Value={}
-          // onChange={}
-          // error={}
+          value={formData.confirmPassword.value}
+          onChange={changeHandler}
+          error={errors.confirmPassword}
         />
         <Radio
           label="Gender"
@@ -54,7 +134,8 @@ const Form = () => {
             { id: 'female', label: 'Female', value: 'female' },
             { id: 'male', label: 'Male', value: 'male' }
           ]}
-          // Error={}
+          onChange={changeHandler}
+          error={errors.gender}
         />
         <Select
           label="Difficulty"
@@ -66,32 +147,32 @@ const Form = () => {
             { label: 'Medium', value: 'medium' },
             { label: 'Hard', value: 'hard' }
           ]}
-          // Value={}
-          // onChange={}
-          // error={}
+          value={formData.difficulty.value}
+          onChange={changeHandler}
+          error={errors.difficulty}
         />
         <Input
           type="file"
           label="Image"
           name="image"
           id="image"
-          // OnChange={}
-          // error={}
+          onChange={changeHandler}
+          error={errors.image}
         />
         <Textarea
           id="description"
           name="description"
           label="Description"
-          // Value={}
-          // onChange={}
+          value={formData.description.value}
+          onChange={changeHandler}
         />
         <Checkbox
           label="Terms and conditions"
           id="terms"
           name="terms"
-          // Value={}
-          // onChange={}
-          // error={}
+          value={formData.terms.value}
+          onChange={changeHandler}
+          error={errors.terms}
         />
         <Button type="submit" title="Submit" />
       </form>
