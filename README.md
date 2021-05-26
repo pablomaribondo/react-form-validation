@@ -11,6 +11,12 @@ As seguintes tecnologias foram utilizadas no desenvolvimento do projeto:
 - [React][react]
 - [Sass][sass]
 
+## 📷 Screenshots
+
+<kbd>
+  <img src=".github/screenshot.png" alt="Form" width="600" />
+</kbd>
+
 [video]: https://www.youtube.com/watch?v=0bIKucQPbTY
 [channel]: https://www.youtube.com/channel/UCS2UjgEPEybOx1toY7aKRJg
 [react]: https://reactjs.org/
