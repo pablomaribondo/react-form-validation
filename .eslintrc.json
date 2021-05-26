@@ -24,6 +24,7 @@
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "react/button-has-type": "off",
-    "react/jsx-sort-props": "off"
+    "react/jsx-sort-props": "off",
+    "guard-for-in": "off"
   }
 }
