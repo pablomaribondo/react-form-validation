@@ -12,7 +12,7 @@ const Checkbox = ({ id, name, value, onChange, checked, label, error }) => {
         />
         <span>{label}</span>
       </label>
-      {error && <div className="form__error">error</div>}
+      {error && <div className="form__error">{error}</div>}
     </div>
   );
 };
