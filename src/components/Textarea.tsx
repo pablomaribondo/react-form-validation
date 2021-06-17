@@ -1,29 +1,31 @@
-const Input = ({
+import { FC, TextareaHTMLAttributes } from 'react';
+
+interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  label: string;
+  error: string;
+}
+
+const Textarea: FC<TextareaProps> = ({
   id,
   label,
-  type,
   name,
   value,
   onChange,
-  placeholder,
   error
 }) => {
   return (
     <div className="form__group">
       <label htmlFor={id}>{label}</label>
-      <input
-        type={type || 'text'}
-        name={name}
+      <textarea
         id={id}
-        autoComplete="off"
+        name={name}
         value={value}
-        onChange={onChange}
-        placeholder={placeholder}
         className={error ? 'error' : ''}
+        onChange={onChange}
       />
       {error && <div className="form__error">{error}</div>}
     </div>
   );
 };
 
-export default Input;
+export default Textarea;

@@ -1,4 +1,19 @@
-const Radio = ({ label, choices, name, onChange, checked, error }) => {
+import { FC, InputHTMLAttributes } from 'react';
+
+interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
+  label: string;
+  error: string;
+  choices: { id: string; label: string; value: string }[];
+}
+
+const Radio: FC<RadioProps> = ({
+  label,
+  choices,
+  name,
+  onChange,
+  checked,
+  error
+}) => {
   return (
     <div className="form__group form__group--radio">
       <p>{label}</p>
@@ -9,8 +24,9 @@ const Radio = ({ label, choices, name, onChange, checked, error }) => {
             name={name}
             id={choice.id}
             value={choice.value}
+            checked={checked}
+            // Checked={checked && checked === choice.value}
             onChange={onChange}
-            checked={checked && checked === choice.value}
           />
           <span>{choice.label}</span>
         </label>

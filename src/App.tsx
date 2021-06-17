@@ -1,9 +1,10 @@
-import './App.scss';
+import { FC } from 'react';
 
+import './App.scss';
 import Header from './components/Header';
 import Form from './components/Form';
 
-const App = () => {
+const App: FC = () => {
   return (
     <>
       <Header title="Form validation using hooks" />

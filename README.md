@@ -10,6 +10,7 @@ As seguintes tecnologias foram utilizadas no desenvolvimento do projeto:
 
 - [React][react]
 - [Sass][sass]
+- [Typescript][typescript]
 
 ## 📷 Screenshots
 
@@ -21,3 +22,4 @@ As seguintes tecnologias foram utilizadas no desenvolvimento do projeto:
 [channel]: https://www.youtube.com/channel/UCS2UjgEPEybOx1toY7aKRJg
 [react]: https://reactjs.org/
 [sass]: https://sass-lang.com/
+[typescript]: https://www.typescriptlang.org/

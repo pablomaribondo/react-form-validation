@@ -1,7 +1,22 @@
-import { useState, useCallback } from 'react';
+/* global Form: readonly */
+import { useState, useCallback, ChangeEvent } from 'react';
 
-const useForm = (initialState, validate) => {
-  const [formData, setFormData] = useState(initialState);
+interface FormHook {
+  formData: Form;
+  errors: { [key: string]: string };
+  changeHandler: (
+    event: ChangeEvent<
+      HTMLInputElement & HTMLSelectElement & HTMLTextAreaElement
+    >
+  ) => void;
+  setErrors: (errors: { [key: string]: string }) => void;
+}
+
+const useForm = (
+  initialState: Form,
+  validate: (fields: Form, submit?: boolean) => { [key: string]: string }
+): FormHook => {
+  const [formData, setFormData] = useState<Form>(initialState);
   const [errors, setErrors] = useState({});
 
   const setDataAndErrors = useCallback(
@@ -16,7 +31,11 @@ const useForm = (initialState, validate) => {
   );
 
   const changeHandler = useCallback(
-    event => {
+    (
+      event: ChangeEvent<
+        HTMLInputElement & HTMLSelectElement & HTMLTextAreaElement
+      >
+    ) => {
       let updatedData;
 
       if (
@@ -27,7 +46,7 @@ const useForm = (initialState, validate) => {
           ...formData,
           [event.target.name]: {
             ...formData[event.target.name],
-            value: event.target.checked,
+            value: event.target.checked.toString(),
             touched: true
           }
         };

@@ -1,5 +1,5 @@
-./*.js
 node_modules
 build
 public
 coverage
+.husky

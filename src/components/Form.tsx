@@ -1,3 +1,6 @@
+/* global Form: readonly */
+import { FC, FormEvent } from 'react';
+
 import Button from './Button';
 import Checkbox from './Checkbox';
 import Input from './Input';
@@ -8,7 +11,7 @@ import Textarea from './Textarea';
 import useForm from '../hooks/useForm';
 import validate from '../utils/validate';
 
-const INITIAL_STATE = {
+const INITIAL_STATE: Form = {
   name: {
     value: '',
     required: true
@@ -43,7 +46,8 @@ const INITIAL_STATE = {
     required: true
   },
   image: {
-    value: {},
+    value: '',
+    fileData: [],
     required: true,
     file: true,
     allowedTypes: ['jpg', 'jpeg', 'png', 'gif'],
@@ -53,19 +57,19 @@ const INITIAL_STATE = {
     value: ''
   },
   terms: {
-    value: false,
+    value: 'false',
     required: true,
     requiredMessage: 'You need to accept our Terms and Conditions!'
   }
 };
 
-const Form = () => {
+const Form: FC = () => {
   const { formData, errors, changeHandler, setErrors } = useForm(
     INITIAL_STATE,
     validate
   );
 
-  const submitHandler = event => {
+  const submitHandler = (event: FormEvent) => {
     event.preventDefault();
 
     const formErrors = validate(formData, true);
@@ -84,6 +88,7 @@ const Form = () => {
       data.append('terms', formData.terms.value);
 
       console.log('Form can be submitted now...');
+      // @ts-ignore
       for (const [key, value] of data.entries()) {
         console.log(`${key}: ${value}`);
       }
@@ -98,16 +103,16 @@ const Form = () => {
           name="name"
           id="name"
           value={formData.name.value}
-          onChange={changeHandler}
           error={errors.name}
+          onChange={changeHandler}
         />
         <Input
           label="Email"
           name="email"
           id="email"
           value={formData.email.value}
-          onChange={changeHandler}
           error={errors.email}
+          onChange={changeHandler}
         />
         <Input
           type="password"
@@ -115,8 +120,8 @@ const Form = () => {
           name="password"
           id="password"
           value={formData.password.value}
-          onChange={changeHandler}
           error={errors.password}
+          onChange={changeHandler}
         />
         <Input
           type="password"
@@ -124,8 +129,8 @@ const Form = () => {
           name="confirmPassword"
           id="confirmPassword"
           value={formData.confirmPassword.value}
-          onChange={changeHandler}
           error={errors.confirmPassword}
+          onChange={changeHandler}
         />
         <Radio
           label="Gender"
@@ -134,8 +139,8 @@ const Form = () => {
             { id: 'female', label: 'Female', value: 'female' },
             { id: 'male', label: 'Male', value: 'male' }
           ]}
-          onChange={changeHandler}
           error={errors.gender}
+          onChange={changeHandler}
         />
         <Select
           label="Difficulty"
@@ -148,22 +153,23 @@ const Form = () => {
             { label: 'Hard', value: 'hard' }
           ]}
           value={formData.difficulty.value}
-          onChange={changeHandler}
           error={errors.difficulty}
+          onChange={changeHandler}
         />
         <Input
           type="file"
           label="Image"
           name="image"
           id="image"
-          onChange={changeHandler}
           error={errors.image}
+          onChange={changeHandler}
         />
         <Textarea
           id="description"
           name="description"
           label="Description"
           value={formData.description.value}
+          error={errors.description}
           onChange={changeHandler}
         />
         <Checkbox
@@ -171,8 +177,8 @@ const Form = () => {
           id="terms"
           name="terms"
           value={formData.terms.value}
-          onChange={changeHandler}
           error={errors.terms}
+          onChange={changeHandler}
         />
         <Button type="submit" title="Submit" />
       </form>
